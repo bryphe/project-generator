@@ -1,0 +1,28 @@
+{
+  "name": "project-generator",
+  "version": "0.0.1",
+  "description": "A command-line tool to generate projects from templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/extr0py/project-generator.git"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "project-generator": "index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/extr0py/project-generator/issues"
+  },
+  "homepage": "https://github.com/extr0py/project-generator",
+  "dependencies": {
+    "fs-extra": "^0.26.5",
+    "minimist": "^1.2.0",
+    "prompt": "^1.0.0"
+  }
+}
