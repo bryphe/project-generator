@@ -6,6 +6,8 @@ var prompt = require("prompt");
 var argv = require("minimist")(process.argv.slice(2));
 console.dir(argv);
 
+var templateJsonFileName = "template.json";
+
 var templateDirectory = path.join(__dirname, "templates");
 var workingDirectory = process.cwd();
 
@@ -19,6 +21,20 @@ if(argv.init) {
         onError("Invalid template");
     }
 
+    var templateJsonPath = path.join(templatePath, templateJsonFileName);
+
+    if(!fs.existsSync(templateJsonPath)) {
+        onError("Could not find template.json in: " + templatePath);
+    }
+
+    var templateJson = JSON.parse(fs.readFileSync(templateJsonPath, "utf8"));
+    console.log(templateJson);
+
+    templateJson.packageFolder = templateJson.packageFolder || "package";
+    var templatePackagePath = path.join(templatePath, templateJson.packageFolder);
+
+    // TODO: Read in properties from template json
+    // TODO: Allow for plugins to add / remove properties
     var properties = [
     {
         name: "name"
@@ -33,10 +49,12 @@ if(argv.init) {
             onError(err);
         }
 
-
+        // TODO: Run plugins to inject properties
         var projectPath = path.join(workingDirectory, result.name);
 
-        copyTemplate(templatePath, projectPath);
+        // TODO: Inject properties
+
+        copyTemplate(templatePackagePath, projectPath);
 
     });
 }
