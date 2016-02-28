@@ -1,20 +1,28 @@
 {
-  "name": "{{name}}",
+  "name": "project-generator",
   "version": "0.0.1",
-  "description": "{{description}}",
-  "main": "./lib/index.js",
+  "description": "A command-line tool to generate projects from templates",
+  "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/extr0py/project-generator.git"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "project-generator": "index.js"
   },
   "author": "",
-  "license": "MIT",
-  "bin": {
-      "testApp": "./lib/index.js"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/extr0py/project-generator/issues"
   },
-  "devDependencies": {
-    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
-    "gulp-cli": "git://github.com/gulpjs/gulp-cli#4.0",
-    "gulp-typescript": "^2.12.0"
-  },
-  "dependencies": {}
+  "homepage": "https://github.com/extr0py/project-generator",
+  "dependencies": {
+    "fs-extra": "^0.26.5",
+    "minimist": "^1.2.0",
+    "prompt": "^1.0.0"
+  }
 }
