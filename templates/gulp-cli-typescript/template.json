@@ -1,4 +1,7 @@
 {
     "packageFolder": "package",
-    "userProperties": []
+    "properties": [
+        { "name": "author" },
+        { "name": "description" }
+    ]
 }
