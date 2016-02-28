@@ -1,0 +1,20 @@
+{
+  "name": "{{name}}",
+  "version": "0.0.1",
+  "description": "{{description}}",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "MIT",
+  "bin": {
+      "testApp": "./lib/index.js"
+  },
+  "devDependencies": {
+    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
+    "gulp-cli": "git://github.com/gulpjs/gulp-cli#4.0",
+    "gulp-typescript": "^2.12.0"
+  },
+  "dependencies": {}
+}
