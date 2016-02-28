@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/extr0py/project-generator",
   "dependencies": {
+    "colors": "^1.1.2",
     "fs-extra": "^0.26.5",
     "minimist": "^1.2.0",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "replace": "^0.3.0"
   }
 }

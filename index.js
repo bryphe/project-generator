@@ -1,17 +1,25 @@
 #!/usr/bin/env node
 
+var colors = require("colors");
 var fs = require("fs-extra");
 var path = require("path");
 var prompt = require("prompt");
+var replace = require("replace");
+var templateLoader = require("./templateLoader");
 var argv = require("minimist")(process.argv.slice(2));
-console.dir(argv);
 
 var templateJsonFileName = "template.json";
 
 var templateDirectory = path.join(__dirname, "templates");
 var workingDirectory = process.cwd();
 
-if(argv.init) {
+if(argv.ls) {
+    var templates = templateLoader.getTemplates();
+    console.log(colors.green("Available templates:"));
+    templates.forEach(function (template) {
+        console.log("--" + template);
+    });
+} else if(argv.init) {
     var template = argv.init;
     console.log("Template: " + template);
 
@@ -28,7 +36,6 @@ if(argv.init) {
     }
 
     var templateJson = JSON.parse(fs.readFileSync(templateJsonPath, "utf8"));
-    console.log(templateJson);
 
     templateJson.packageFolder = templateJson.packageFolder || "package";
     var templatePackagePath = path.join(templatePath, templateJson.packageFolder);
@@ -41,7 +48,13 @@ if(argv.init) {
     }
     ];
 
-    prompt.message = "project-generator";
+    var templateProperties = templateJson.properties || [];
+
+    templateProperties.forEach(function (prop) {
+        properties.push(prop);
+    });
+
+    prompt.message = template;
     prompt.start();
 
     prompt.get(properties, function (err, result) {
@@ -50,12 +63,24 @@ if(argv.init) {
         }
 
         // TODO: Run plugins to inject properties
-        var projectPath = path.join(workingDirectory, result.name);
+        console.log(colors.yellow("Copying template..."));
+        copyTemplate(templatePackagePath, workingDirectory);
 
-        // TODO: Inject properties
+        // Inject properties
+        console.log(colors.yellow("Injecting values..."));
+        properties.forEach(function (prop) {
+            var value = result[prop.name];
+            replace({
+                regex: "{{" + prop.name + "}}",
+                replacement: value,
+                paths: [workingDirectory],
+                recursive: true,
+                silent: true,
+            });
+        });
 
-        copyTemplate(templatePackagePath, projectPath);
 
+        console.log(colors.green("Template creation successful"))
     });
 }
 
